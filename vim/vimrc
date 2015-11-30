@@ -1,0 +1,347 @@
+" Modeline and Notes {
+" vim: set foldmarker={,} foldlevel=0 foldmethod=marker:
+" }
+
+" Environment {
+    " Basic {
+        set nocompatible
+        set encoding=utf8
+        syntax on
+        syntax sync fromstart
+    " }
+
+    " Vundle support {
+        set rtp+=~/.vim/bundle/vundle/
+        call vundle#rc()
+    " }
+
+    " Bundles {
+        Bundle 'gmarik/vundle'
+
+        Bundle 'tpope/vim-fugitive'
+        Bundle 'tpope/vim-repeat'
+        Bundle 'tpope/vim-surround'
+        Bundle 'tpope/vim-endwise'
+        Bundle 'tpope/vim-unimpaired'
+        Bundle 'tpope/vim-abolish'
+        Bundle 'tpope/vim-commentary'
+
+        " ruby
+        Bundle 'tpope/vim-rails'
+        Bundle 'tpope/vim-bundler'
+        Bundle 'tpope/vim-rake'
+        Bundle 'tpope/vim-rbenv'
+        Bundle 'vim-ruby/vim-ruby'
+        Bundle 'thoughtbot/vim-rspec'
+        Bundle 'ecomba/vim-ruby-refactoring'
+
+        Bundle 'altercation/vim-colors-solarized'
+        Bundle 'chriskempson/vim-tomorrow-theme'
+
+        Bundle 'MarcWeber/vim-addon-mw-utils'
+        Bundle 'tomtom/tlib_vim'
+        Bundle 'garbas/vim-snipmate'
+
+        Bundle 'docunext/closetag.vim'
+        Bundle 'ctrlpvim/ctrlp.vim'
+        Bundle 'ervandew/supertab'
+
+        Bundle 'kien/rainbow_parentheses.vim'
+        Bundle 'terryma/vim-multiple-cursors'
+
+        Bundle 'bling/vim-airline'
+        Bundle 'edkolev/promptline.vim'
+
+        " dash documentation support
+        Bundle 'rizzatti/funcoo.vim'
+        Bundle 'rizzatti/dash.vim'
+
+        Bundle 'mattn/emmet-vim'
+    " }
+
+    " OS Settings {
+        if has("mac")
+            if has("gui_macvim")
+                set guifont=Source\ Code\ Pro\ for\ Powerline:h16
+                "set guifont=Fira\ Mono:h14
+                "set guifont=DejaVu\ Sans\ Mono:h14
+                " give focus back to app that started macvim
+                "au VimLeave * maca hide:
+            endif
+        endif
+    " }
+" }
+
+" UI {
+    colorscheme tomorrow-night
+    set background=dark
+    set t_Co=256
+
+    if has("gui_running")
+        set guioptions+=a  " put copied stuff into system clipboard (visual)
+        set guioptions+=A  " put copied stuff into system clipboard (modeless)
+        set guioptions+=e  " use gui tabs
+        set guioptions+=c  " use console dialogs
+        set guioptions-=r  " disable right scroll bar
+        set guioptions-=R  " disable right scroll bar on split
+        set guioptions-=l  " disable left scroll bar
+        set guioptions-=L  " disable left scroll bar on split
+        set guioptions-=T  " disable toolbar
+        set guitablabel=%M\ %t
+        set lines=80      " full screen height
+        set columns=125    " full screen width
+        if exists('+fuoptions')
+            set fuoptions=maxhorz,maxvert
+        endif
+    endif
+    if exists("+antialias")
+        set antialias
+    endif
+" }
+
+" Formatting {
+    set tabstop=4                  " # of spaces equal a TAB
+    set shiftwidth=4               " # of spaces for >> or <<
+    set softtabstop=4              " makes TAB uses spaces instead of TAB character
+    set autoindent                 " copies indent from previous line
+    set expandtab                  " makes TABs spaces
+    set pastetoggle=<F2>           " keeps format of pasted content
+    set smarttab                   " make backspace remove spaces as TABs
+    set smartindent                " indent with smarts
+" }
+
+" General {
+    set textwidth=0                " disables wrap margin
+    set tabpagemax=15              " max # of open tabs
+    set laststatus=2               " forces last window to have a status line
+    set filetype=on                " detects filetype for set command per type
+    set visualbell                 " enabled flash on error
+    set backspace=indent,eol,start " Influences the working of backspace of new lines and such
+    set incsearch                  " show search results while typing
+    set nuw=6                      " min numbers of spaces held for line numbering on the left
+    set ignorecase                 " case insentive when searching
+    set showmatch                  " when typing flash to matching bracket
+    set ai                         " auto indent
+    set si                         " smart indent
+    set nojoinspaces
+    set cul                        " highlight current line
+    "set number                     " show line numbers on left
+    set relativenumber             " show relative line numbers on left
+    set hidden                     " makes non visable buffers as abandoned so :q! with changes in that buffer will be lost
+    set backup
+    set backupdir=~/.vim/backup    " where to keep backup files
+    set directory=~/.vim/tmp       " working directory?
+    set history=100                " # of : comment so keep
+    set lz                         " Don't redraw when running marcos -- lazyredraw
+    set magic
+    set hlsearch                   " highlight search matches
+    set nocompatible
+    set diffopt=filler
+    set diffopt+=iwhite
+    set diffopt+=icase
+    set timeoutlen=500
+    set foldmethod=syntax          " fold based on indent
+    set foldnestmax=10             " deepest fold is 10 levels
+    set nofoldenable               " dont fold by default
+    set foldlevel=1
+    set foldcolumn=1               " display fold in gutter
+    set wildmenu                   " enabled command completion in enhanced mode
+    set nospell                    " disable spell check
+    set scrolloff=4
+    set wildignore=out,build,.gradle,.idea,.svn,CVS,.git,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.png,*.xpm,*.gif,target,classes,*.jar " file to ignore on completing names
+
+    setlocal omnifunc=syntaxcomplete#Complete
+    set ruler                      " show the ruler
+    set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%) " a ruler on steroids
+    set list                       " show whitespace
+    set listchars=tab:>-,trail:-,nbsp:%     " show tabs, non breaking space and trailing spaces as funky symbols
+
+    hi CursorLine term=none cterm=none
+
+    " statusline {
+        set statusline=                                              " clear statusline
+        set statusline+=[%-n\]\                                      " buffer number
+        set statusline+=%F\                                          " full path filename
+        set statusline+=%3*
+        set statusline+=%m                                           " modified flag
+        set statusline+=%r                                           " read only flag
+        set statusline+=%h                                           " help file flag
+        set statusline+=%w                                           " preview window flag
+        set statusline+=%*
+        set statusline+=%=                                           " spacer
+        set statusline+=\ %{fugitive#statusline()}                   " git status of file
+        set statusline+=\%{exists('g:loaded_rbenv')?rbenv#statusline():''}
+        set statusline+=\ [%{&ff}]                                   " line endings
+        set statusline+=\ [%Y%*]                                     " filetype
+        set statusline+=\ [%{(&fenc==\"\"?&enc:&fenc)}]              " file encoding
+        set statusline+=\ [\%03.3b%*:\%02.2B]                        " dec / hex value of current char
+        set statusline+=\ [%04l/%04L,%04v]                           " current / total lines, column position
+        set statusline+=\ [%3p%%]                                    " vertical percentage position
+    " }
+" }
+
+" Abbreviations {
+    iabbrev xstamp    <C-R>=strftime("%a %b %d %H:%M:%S %Y %Z")<CR>
+    iabbrev lastmod  <C-R>="Last Modified: " . strftime("%a %b %d %H:%M:%S %Y %Z")<CR>
+" }
+
+" Key Mappings {
+    let mapleader=','
+
+    " Yank from the cursor to the end of the line, to be consistent with C and D.
+    nnoremap Y y$
+
+    map <leader>k :Explore<cr>
+
+    " reload vim configuration
+    ":map <leader>rr :source $MYVIMRC<cr>
+
+    " easier to get to split
+    :map <leader>s :sp<cr>
+    " easier to get to vsplit
+    :map <leader>v :vsp<cr>
+    " easier resize of splits
+    :map + <c-w>+
+    :map - <c-w>-
+
+    " easier movement within windows
+    :map <C-h> <C-w>h
+    :map <C-j> <C-w>j
+    :map <C-k> <C-w>k
+    :map <C-l> <C-w>l
+
+    " change auto complete from c-x,c-o to c-space
+    inoremap <Nul> <C-x><C-o>
+
+    " Toggle line numbers to make copy easier
+    nnoremap <F3> :set nonumber!<CR>:set foldcolumn=0<CR>
+
+    " add modeline to file
+    nnoremap <silent> <leader>ml :call AppendModeline()<CR>
+
+    " make easier opening of file in same dir as current
+    cnoremap %% <C-R>=expand('%:h').'/'<cr>
+    map <leader>ew :e %%
+    map <leader>es :sp %%
+    map <leader>ev :vsp %%
+    map <leader>et :tabe %%
+
+    " map comments to match IDE
+    :map <D-/> :NERDComComment<cr><cr>
+    :vmap <D-/> :NERDComComment<cr>
+
+    " bubble text movement
+    nmap <D-S-Up> [e
+    nmap <D-S-Down> ]e
+    " visual bubble text movement
+    vmap <D-S-Up> [egv
+    vmap <D-S-Down> ]egv
+
+    " visual mode sticky-ness and tab/shift-tab movement
+    :vmap < <gv
+    :vmap > >gv
+    :vmap <TAB> >gv
+    :vmap <S-Tab> <gv
+
+    " Press Space to turn off highlighting and clear any message already displayed.
+    :nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
+
+    " Sudo to write when you opened the file without sudo
+    cmap w!! w !sudo tee % >/dev/null
+
+    " search dash help for keyword under cursor
+    :nmap <silent> <leader>h <Plug>DashSearch
+" }
+
+" Functions {
+    fun! AppendModeline()
+      let save_cursor = getpos('.')
+      let append = ' vim: set ts='.&tabstop.' sw='.&shiftwidth.' tw='.&textwidth.': '
+      $put =substitute(&commentstring, '%s', append, '')
+      call setpos('.', save_cursor)
+    endfun
+" }
+
+" Plugin Settings {
+    " vim {
+        let g:netrw_liststyle=3
+        au FocusLost * silent! wa
+    " }
+
+    " airline / powerline {
+        let g:airline#extensions#tabline#enabled = 1
+        let g:airline#extensions#tabline#fnamemod = ':t'
+        let g:airline_powerline_fonts = 1
+    " }
+
+    " ctrlp {
+        let g:ctrlp_map = '<leader>t'
+        nmap <leader>b :CtrlPBuffer<cr>
+        let g:ctrlp_max_height = 10
+        let g:ctrlp_regexp = 0
+        let g:ctrlp_max_files = 50000
+        let g:ctrlp_custom_ignore = {
+                    \ 'dir':  '\.git$\|\.hg$\|\.svn$',
+                    \ 'file': '\.exe$\|\.so$\|\.dll$\|\.DS_Store\|\.class$' }
+    " }
+
+    " ack {
+        map <leader>f :Ack<space>
+    " }
+
+    " AutoCloseTag {
+        " Make it so AutoCloseTag works for xml and xhtml files as well
+        au FileType xhtml,xml ru ftplugin/html/autoclosetag.vim
+        nmap <Leader>ac <Plug>ToggleAutoCloseMappings
+    " }
+
+    " TagBar {
+        nnoremap <silent> <leader>tt :TagbarToggle<CR>
+    " }
+
+    " RainbowParentheses {
+        au VimEnter * RainbowParenthesesToggle
+        au Syntax * RainbowParenthesesLoadRound
+        au Syntax * RainbowParenthesesLoadSquare
+        au Syntax * RainbowParenthesesLoadBraces
+    " }
+    " Syntastic {
+        let g:syntastic_mode_map = { 'mode': 'active',
+                                   \ 'active_filetypes': ['foo', 'bar'],
+                                   \ 'passive_filetypes': ['java'] }
+    " }
+    " Rspec plugin
+       " map <Leader>t :call RunCurrentSpecFile()<CR>
+       " map <Leader>s :call RunNearestSpec()<CR>
+       " map <Leader>l :call RunLastSpec()<CR>
+       " map <Leader>a :call RunAllSpecs()<CR>
+    " }
+" }
+
+" Autocommands {
+    if has("autocmd")
+        augroup Ruby
+            autocmd!
+            autocmd FileType ruby set autoindent tabstop=2 shiftwidth=2 softtabstop=2 smarttab expandtab formatoptions=croq
+            autocmd FileType ruby map <buffer> <S-e> :w<CR>:!/usr/bin/env ruby % <CR>
+        augroup END
+
+        augroup Python
+            autocmd!
+            autocmd FileType python set omnifunc=pythoncomplete#Complete
+            autocmd FileType python map <buffer> <S-e> :w<CR>:!/usr/bin/env python % <CR>
+            autocmd FileType python set makeprg=python\ -c\ \"import\ py_compile,sys;\ sys.stderr=sys.stdout;\ py_compile.compile(r'%')\"
+            autocmd FileType python set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
+            autocmd FileType python set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
+            " removes trailing whitespace on save
+            autocmd FileType python normal m`:%s/\s\+$//e ``
+        augroup END
+
+        " When editing a file, always jump to the last cursor position
+        autocmd BufReadPost *
+            \ if line("'\"") > 0 && line ("'\"") <= line("$") |
+            \   exe "normal g'\"" |
+            \ endif
+    endif
+" }
+" vim: set ts=4 sw=4 tw=0:

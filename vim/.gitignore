@@ -1,0 +1,6 @@
+backup/*
+tmp/*
+*.swp
+*~
+.netrwhist
+bundle/
